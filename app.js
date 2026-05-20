@@ -2,7 +2,7 @@ let api = "https://fakestoreapi.com/products";
 
 let searchIcon = document.querySelector(".search-icon");
 let navbar = document.querySelector("nav");
-
+let CategoryContainer = document.querySelector(".category-container");
 
 
 
@@ -23,4 +23,22 @@ searchIcon.addEventListener("click", ()=>{
         searchDiv.remove();
     });
 });
+
+
+// Category section
+let categories = [];
+
+async function fetchCategory(){
+    let response = await fetch(`${api}/categories`);
+    categories = await response.json();
+
+    for(let i=0; i<categories.length; i++){
+    let categoryButton = document.createElement("button");
+    categoryButton.innerText = `${categories[i]}`
+    CategoryContainer.append(categoryButton);
+}
+}
+
+fetchCategory();
+
 
