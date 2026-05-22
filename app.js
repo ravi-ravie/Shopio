@@ -26,19 +26,55 @@ searchIcon.addEventListener("click", ()=>{
 
 
 // Category section
-let categories = [];
+let allBtn = document.createElement("button");
+allBtn.className = "cate-btn active";
+allBtn.innerText = "All";
+CategoryContainer.append(allBtn);
 
 async function fetchCategory(){
+    console.log("fetch called");
     let response = await fetch(`${api}/categories`);
-    categories = await response.json();
+    let categories = await response.json();
+
 
     for(let i=0; i<categories.length; i++){
     let categoryButton = document.createElement("button");
+    categoryButton.className = "cate-btn";
     categoryButton.innerText = `${categories[i]}`
     CategoryContainer.append(categoryButton);
-}
+    }
+
+    let btn = document.querySelectorAll(".cate-btn");
+    btn.forEach((ele)=>{
+        ele.addEventListener("click", ()=>{
+            CategorySelected(btn, ele);
+        });
+    });
 }
 
 fetchCategory();
 
+function CategorySelected(btn,ele){
+    btn.forEach((element)=>{
+        element.classList.remove("active");
+    });
+    ele.classList.add("active");
+};
+
+
+// cards - products
+let products = [];
+
+async function getProducts(){
+    let response = await fetch(api);
+    products = await response.json();
+
+    displayProducts();
+}
+
+getProducts();
+
+function displayProducts(){
+
+}
 

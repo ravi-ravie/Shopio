@@ -10,3 +10,8 @@
 body{
     background-color: var(--color-bg);
 }
+
+.active{
+    background-color: crimson;
+    color: gray;
+}
