@@ -27,6 +27,7 @@ searchIcon.addEventListener("click", ()=>{
 
 // Category section
 let btn;
+let categories;
 let allBtn = document.createElement("button");
 allBtn.className = "cate-btn active";
 allBtn.innerText = "All";
@@ -34,7 +35,7 @@ CategoryContainer.append(allBtn);
 
 async function fetchCategory(){
     let response = await fetch(`${api}/categories`);
-    let categories = await response.json();
+    categories = await response.json();
 
 
     for(let i=0; i<categories.length; i++){
@@ -68,27 +69,33 @@ function CategorySelected(btn,ele){
 
 function displayProducts(){
     btn.forEach((ele,idx)=>{
-        if(idx===0){
-            allProducts();
-        }
+        if(idx===0)
+            callProduct(idx);
         ele.addEventListener("click", ()=>{
-            if(ele.classList.contains("active")){
-                if(idx===0)
-                    console.log("all");
-                else if(idx===1)
-                    console.log("electronics");
-                else if(idx===2)
-                    console.log("jewelery");
-            }
+            callProduct(idx);
         });
     });
 }
 
-async function allProducts(){
-    let response = await fetch(api);
-    let all = await response.json();
-    
-    for(let i=0; i<all.length; i++){
+async function callProduct(idx){
+
+    if(idx===0){
+        let response = await fetch(api);
+        productLoading(await response.json());
+    }
+    else{
+        console.log(idx, idx-1, categories[idx-1]);
+
+        let response = await fetch(`${api}/category/${categories[idx-1]}`);
+
+        productLoading(await response.json());
+        console.log("called non 0");
+    }
+}
+
+function productLoading(products){
+    productsContainer.innerHTML = "";
+    for(let i=0; i<products.length; i++){
         let itemContainer = document.createElement("div");
         productsContainer.append(itemContainer);
 
@@ -99,15 +106,15 @@ async function allProducts(){
 
         let upperCategory = document.createElement("p");
         let img = document.createElement("img");
-        upperCategory.innerText = `${all[i].category}`
-        img.src = `${all[i].image}`
+        upperCategory.innerText = `${products[i].category}`
+        img.src = `${products[i].image}`
         img.width = 100;
         img.height = 100;
         upperDiv.append(upperCategory);
         upperDiv.append(img);
 
         let title = document.createElement("p");
-        title.innerText = `${all[i].title}`;
+        title.innerText = `${products[i].title}`;
         lowerDiv.append(title);
 
         let rating = document.createElement("div");
@@ -118,8 +125,8 @@ async function allProducts(){
         let stars = document.createElement("span");
         let voting = document.createElement("span");
         let votes = document.createElement("span");
-        voting.innerText = `${all[i].rating.rate}`
-        votes.innerText =  `${all[i].rating.count}`
+        voting.innerText = `${products[i].rating.rate}`
+        votes.innerText =  `${products[i].rating.count}`
         rating.append(stars);
         rating.append(voting);
         rating.append(votes);
