@@ -85,11 +85,9 @@ async function callProduct(idx){
     }
     else{
         console.log(idx, idx-1, categories[idx-1]);
-
         let response = await fetch(`${api}/category/${categories[idx-1]}`);
 
         productLoading(await response.json());
-        console.log("called non 0");
     }
 }
 
@@ -118,9 +116,7 @@ function productLoading(products){
         lowerDiv.append(title);
 
         let rating = document.createElement("div");
-        let priceSection = document.createElement("div");
         lowerDiv.append(rating);
-        lowerDiv.append(priceSection);
 
         let stars = document.createElement("span");
         let voting = document.createElement("span");
@@ -130,5 +126,18 @@ function productLoading(products){
         rating.append(stars);
         rating.append(voting);
         rating.append(votes);
+
+        let priceNcart = document.createElement("div");
+        lowerDiv.append(priceNcart);
+
+        let price = document.createElement("span");
+        let cardAdd = document.createElement("button");
+        price.innerText = `${products[i].price}`;
+        cardAdd.innerText = "+";
+        priceNcart.append(price);
+        priceNcart.append(cardAdd);
+
+        
+
     }
 }
