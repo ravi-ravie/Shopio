@@ -84,7 +84,6 @@ async function callProduct(idx){
         productLoading(await response.json());
     }
     else{
-        console.log(idx, idx-1, categories[idx-1]);
         let response = await fetch(`${api}/category/${categories[idx-1]}`);
 
         productLoading(await response.json());
@@ -95,6 +94,8 @@ function productLoading(products){
     productsContainer.innerHTML = "";
     for(let i=0; i<products.length; i++){
         let itemContainer = document.createElement("div");
+        itemContainer.dataset.description = products[i].description;
+        itemContainer.className = "card";
         productsContainer.append(itemContainer);
 
         let upperDiv = document.createElement("div");
@@ -103,9 +104,11 @@ function productLoading(products){
         itemContainer.append(lowerDiv);
 
         let upperCategory = document.createElement("p");
+        upperCategory.className = "upper-category";
         let img = document.createElement("img");
-        upperCategory.innerText = `${products[i].category}`
-        img.src = `${products[i].image}`
+        img.className = ""
+        upperCategory.innerText = `${products[i].category}`;
+        img.src = `${products[i].image}`;
         img.width = 100;
         img.height = 100;
         upperDiv.append(upperCategory);
@@ -119,25 +122,46 @@ function productLoading(products){
         lowerDiv.append(rating);
 
         let stars = document.createElement("span");
+        stars.className = "stars";
         let voting = document.createElement("span");
-        let votes = document.createElement("span");
-        voting.innerText = `${products[i].rating.rate}`
-        votes.innerText =  `${products[i].rating.count}`
+        voting.className = "voting";
+        let voteCount = document.createElement("span");
+        voteCount.className = "voteCount";
+        voting.innerText = `${products[i].rating.rate}`;
+        voteCount.innerText =  `${products[i].rating.count}`;
         rating.append(stars);
         rating.append(voting);
-        rating.append(votes);
+        rating.append(voteCount);
 
         let priceNcart = document.createElement("div");
         lowerDiv.append(priceNcart);
 
         let price = document.createElement("span");
-        let cardAdd = document.createElement("button");
+        price.className = "price";
+        let cartAdd = document.createElement("button");
+        cartAdd.className = "cartAdd";
         price.innerText = `${products[i].price}`;
-        cardAdd.innerText = "+";
+        cartAdd.innerText = "+";
         priceNcart.append(price);
-        priceNcart.append(cardAdd);
-
-        
+        priceNcart.append(cartAdd);
 
     }
+}
+
+// product Selection 
+
+productsContainer.addEventListener("click", (e)=>{
+    let card = e.target.closest(".card");
+    if(!card)return;
+    drawerFunc(card);
+});
+
+function drawerFunc(card){
+    document.querySelector(".drawer-img").src = card.querySelector("img").src;
+    document.querySelector(".drawer-category").innerText = card.querySelector(".upper-category").innerText;
+    document.querySelector(".drawer-stars").innerText = card.querySelector(".stars").innerText;
+    document.querySelector(".drawer-vote").innerText = card.querySelector(".voting").innerText;
+    document.querySelector(".drawer-count").innerText = card.querySelector(".voteCount").innerText;
+    document.querySelector(".drawer-description").innerText = card.dataset.description;
+    document.querySelector(".drawer-price").innerText = card.querySelector(".price").innerText;
 }
