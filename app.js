@@ -4,7 +4,8 @@ let searchIcon = document.querySelector(".search-icon");
 let navbar = document.querySelector("nav");
 let CategoryContainer = document.querySelector(".category-container");
 let productsContainer = document.querySelector(".products-container");
-
+let productDrawer = document.querySelector(".product-drawer");
+let drawerClose = document.querySelector(".drawer-close");
 
 searchIcon.addEventListener("click", ()=>{
     if(document.querySelector(".searchDiv")) return;
@@ -149,14 +150,24 @@ function productLoading(products){
 }
 
 // product Selection 
+let isbottomsheet = false
 
 productsContainer.addEventListener("click", (e)=>{
     let card = e.target.closest(".card");
     if(!card)return;
-    drawerFunc(card);
+    if(!isbottomsheet){
+        drawerFunc(card);
+        return
+    }else{
+        closeDrawerFunc();
+    }
 });
 
 function drawerFunc(card){
+        productDrawer.classList.add("open");
+        isbottomsheet = true;
+        console.log(isbottomsheet);
+    
     document.querySelector(".drawer-img").src = card.querySelector("img").src;
     document.querySelector(".drawer-category").innerText = card.querySelector(".upper-category").innerText;
     document.querySelector(".drawer-stars").innerText = card.querySelector(".stars").innerText;
@@ -165,3 +176,17 @@ function drawerFunc(card){
     document.querySelector(".drawer-description").innerText = card.dataset.description;
     document.querySelector(".drawer-price").innerText = card.querySelector(".price").innerText;
 }
+
+function closeDrawerFunc(){
+    productDrawer.classList.remove("open");
+    isbottomsheet = false;
+}
+
+drawerClose.addEventListener("click", ()=>{
+    closeDrawerFunc();
+});
+
+document.addEventListener("click", (e)=>{
+    if(!productsContainer.contains(e.target) && !productDrawer.contains(e.target))
+        closeDrawerFunc();
+});

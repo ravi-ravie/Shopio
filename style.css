@@ -15,3 +15,14 @@ body{
     background-color: crimson;
     color: gray;
 }
+
+.product-drawer{
+    position: fixed;
+    bottom: 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.product-drawer.open{
+    transform: translateY(0);
+}
