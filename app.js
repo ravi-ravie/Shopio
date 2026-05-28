@@ -6,6 +6,9 @@ let CategoryContainer = document.querySelector(".category-container");
 let productsContainer = document.querySelector(".products-container");
 let productDrawer = document.querySelector(".product-drawer");
 let drawerClose = document.querySelector(".drawer-close");
+let sidebar = document.querySelector(".sidebar");
+let cartIcon = document.querySelector(".cart-icon");
+let sidebarClose = document.querySelector(".sidebar-close");
 
 searchIcon.addEventListener("click", ()=>{
     if(document.querySelector(".searchDiv")) return;
@@ -149,7 +152,7 @@ function productLoading(products){
     }
 }
 
-// product Selection 
+// Bottom sheet
 let isbottomsheet = false
 
 productsContainer.addEventListener("click", (e)=>{
@@ -158,16 +161,15 @@ productsContainer.addEventListener("click", (e)=>{
     if(!isbottomsheet){
         drawerFunc(card);
         return
-    }else{
-        closeDrawerFunc();
     }
+    
+    closeDrawerFunc();
+    
 });
 
 function drawerFunc(card){
-        productDrawer.classList.add("open");
-        isbottomsheet = true;
-        console.log(isbottomsheet);
-    
+    productDrawer.classList.add("open");
+    isbottomsheet = true;
     document.querySelector(".drawer-img").src = card.querySelector("img").src;
     document.querySelector(".drawer-category").innerText = card.querySelector(".upper-category").innerText;
     document.querySelector(".drawer-stars").innerText = card.querySelector(".stars").innerText;
@@ -189,4 +191,36 @@ drawerClose.addEventListener("click", ()=>{
 document.addEventListener("click", (e)=>{
     if(!productsContainer.contains(e.target) && !productDrawer.contains(e.target))
         closeDrawerFunc();
+
+    if(isSidebar===true && !sidebar.contains(e.target) && e.target !== cartIcon){
+        closeSidebar();
+    }
+
 });
+
+
+// Sidebar
+let isSidebar = false;
+
+cartIcon.addEventListener("click", ()=>{
+    if(!isSidebar)
+        sidebarFunc();
+    else
+        closeSidebar();
+});
+
+function sidebarFunc(){
+    sidebar.classList.add("open");
+    isSidebar = true;
+    console.log(isSidebar);
+}
+
+sidebarClose.addEventListener("click", ()=>{
+    closeSidebar();
+});
+
+function closeSidebar(){
+    sidebar.classList.remove("open");
+    isSidebar = false;
+    console.log(isSidebar);
+}

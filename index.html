@@ -18,7 +18,7 @@
                 <a id="logo-text" href="index.html">Shopio</a>
             </div>
             <i class="ri-search-line search-icon"></i>
-            <i class="ri-shopping-cart-line"></i>
+            <i class="ri-shopping-cart-line cart-icon"></i>
         </div>
     </nav>
     
@@ -29,12 +29,12 @@
 
     </main>
 
-    <div class="product-drawer">
+    <div class="product-drawer bottom-drawer">
         <div class="drawer-upper">
             <img class="drawer-img" width="100">
             <i class="ri-close-line drawer-close"></i>
         </div>
-        <div class="drawer-lower">
+        <div class="drawer-lower ">
             <p class="drawer-category"></p>
             <h3 class="drawer-title"></h3>
             <div class="drawer-rating">
@@ -48,6 +48,33 @@
                 <button><i class="ri-shopping-cart-line"></i>Add to Cart</button>
             </div>
         </div>
+    </div>
+
+    <div class="sidebar bottom-drawer">
+        <div class="sidebar-handle"></div>
+        <div class="sidebar-header">
+            <p><i class="ri-shopping-cart-line"></i>Your Cart</p>
+            <button><i class="ri-close-line sidebar-close"></i></button>
+        </div>
+        <div class="cart-products"></div>
+        <div class="cart-footer">
+            <div class="subtotal">
+                <span>Subtotal</span>
+                <span class="subtotal-value"></span>
+            </div>
+            <div class="shipping">
+                <span>Shipping</span>
+                <span class="shipping-value"></span>
+            </div>
+            <div class="total">
+                <span>Total</span>
+                <span class="total-value"></span>
+            </div>
+            <div class="checkout">
+                <p>Proceed to checkout <i class="ri-arrow-right-line"></i></p>
+            </div>
+        </div>
+
     </div>
     <script src="app.js"></script>
 </body>
