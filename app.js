@@ -9,6 +9,7 @@ let drawerClose = document.querySelector(".drawer-close");
 let sidebar = document.querySelector(".sidebar");
 let cartIcon = document.querySelector(".cart-icon");
 let sidebarClose = document.querySelector(".sidebar-close");
+let cartProducts = document.querySelector(".cart-products");
 
 searchIcon.addEventListener("click", ()=>{
     if(document.querySelector(".searchDiv")) return;
@@ -98,6 +99,7 @@ function productLoading(products){
     productsContainer.innerHTML = "";
     for(let i=0; i<products.length; i++){
         let itemContainer = document.createElement("div");
+        itemContainer.dataset.id = products[i].id;
         itemContainer.dataset.description = products[i].description;
         itemContainer.className = "card";
         productsContainer.append(itemContainer);
@@ -119,6 +121,7 @@ function productLoading(products){
         upperDiv.append(img);
 
         let title = document.createElement("p");
+        title.className = "cardTitle";
         title.innerText = `${products[i].title}`;
         lowerDiv.append(title);
 
@@ -145,6 +148,7 @@ function productLoading(products){
         let cartAdd = document.createElement("button");
         cartAdd.className = "cartAdd";
         price.innerText = `${products[i].price}`;
+        itemContainer.dataset.price = products[i].price;
         cartAdd.innerText = "+";
         priceNcart.append(price);
         priceNcart.append(cartAdd);
@@ -158,7 +162,12 @@ let isbottomsheet = false
 productsContainer.addEventListener("click", (e)=>{
     let card = e.target.closest(".card");
     if(!card)return;
+    
     if(!isbottomsheet){
+        if(e.target === card.querySelector(".cartAdd")){
+            AddingToCart(card);
+            return;
+        }
         drawerFunc(card);
         return
     }
@@ -198,6 +207,8 @@ document.addEventListener("click", (e)=>{
 
 });
 
+let drawerAddCartButton = document.querySelector(".prouct-drawer button");
+
 
 // Sidebar
 let isSidebar = false;
@@ -212,7 +223,6 @@ cartIcon.addEventListener("click", ()=>{
 function sidebarFunc(){
     sidebar.classList.add("open");
     isSidebar = true;
-    console.log(isSidebar);
 }
 
 sidebarClose.addEventListener("click", ()=>{
@@ -222,5 +232,44 @@ sidebarClose.addEventListener("click", ()=>{
 function closeSidebar(){
     sidebar.classList.remove("open");
     isSidebar = false;
-    console.log(isSidebar);
+}
+
+// cart
+const cart = [];
+
+
+
+function AddingToCart(card){
+    let itemFound = cart.find(obj => obj.id === card.dataset.id);
+    if(itemFound){
+        itemFound.quantity++;
+        return;
+    }
+    
+    const item = {
+        id : card.dataset.id,
+        title : card.querySelector(".cardTitle").innerText,
+        quantity : 1,
+        price : card.dataset.price,
+        
+        get totalPrice(){
+            return this.price * this.quantity;
+        }
+    }
+    cart.push(item);
+    displayCartProducts(item, card);
+}
+
+function displayCartProducts(item, card){
+    cartProducts.innerHTML += `
+        <div class="leftCartDiv">
+            <img class="cartImg" src="${card.querySelector("img").src}" height="40px"/>
+        </div>
+        <div class="rightCartDiv">
+            <p>${item.title}</p>
+            <p>${item.price}</p>
+        </div>
+        <div class="quantityDiv">
+            <button><i class="ri-subtract-line"></i></button><span class="cartProductQty">${item.quantity}<button><i class="ri-add-line"></i></button><i class="ri-close-line"></i>
+    `
 }

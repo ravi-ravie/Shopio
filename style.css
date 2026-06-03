@@ -24,5 +24,7 @@ body{
 }
 
 .bottom-drawer.open{
+    background: crimson;
     transform: translateY(0);
 }
+
