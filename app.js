@@ -157,7 +157,8 @@ function productLoading(products){
 }
 
 // Bottom sheet
-let isbottomsheet = false
+let isbottomsheet = false;
+let DrawerActiveCard = null;
 
 productsContainer.addEventListener("click", (e)=>{
     let card = e.target.closest(".card");
@@ -177,6 +178,7 @@ productsContainer.addEventListener("click", (e)=>{
 });
 
 function drawerFunc(card){
+    DrawerActiveCard = card;
     productDrawer.classList.add("open");
     isbottomsheet = true;
     document.querySelector(".drawer-img").src = card.querySelector("img").src;
@@ -191,6 +193,7 @@ function drawerFunc(card){
 function closeDrawerFunc(){
     productDrawer.classList.remove("open");
     isbottomsheet = false;
+    DrawerActiveCard = null;
 }
 
 drawerClose.addEventListener("click", ()=>{
@@ -207,7 +210,9 @@ document.addEventListener("click", (e)=>{
 
 });
 
-let drawerAddCartButton = document.querySelector(".prouct-drawer button");
+document.querySelector(".product-drawer button").addEventListener("click",()=>{
+    AddingToCart(DrawerActiveCard);
+});
 
 
 // Sidebar
@@ -242,7 +247,7 @@ const cart = [];
 function AddingToCart(card){
     let itemFound = cart.find(obj => obj.id === card.dataset.id);
     if(itemFound){
-        itemFound.quantity++;
+        addQtyFunc(itemFound)
         return;
     }
     
@@ -262,14 +267,35 @@ function AddingToCart(card){
 
 function displayCartProducts(item, card){
     cartProducts.innerHTML += `
-        <div class="leftCartDiv">
-            <img class="cartImg" src="${card.querySelector("img").src}" height="40px"/>
+        <div class="singleCartProduct"  data-id="${item.id}">
+            <div class="leftCartDiv">
+                <img class="cartImg" src="${card.querySelector("img").src}" height="40px"/>
+            </div>
+            <div class="rightCartDiv">
+                <p>${item.title}</p>
+                <p>${item.price}</p>
+            </div>
+            <div class="quantityDiv">
+                <button class="minusCart"><i class="ri-subtract-line"></i></button><span id="qty-${item.id}">${item.quantity}</span><button class="addToCart"><i class="ri-add-line"></i></button><i class="ri-close-line"></i>
+            </div>
         </div>
-        <div class="rightCartDiv">
-            <p>${item.title}</p>
-            <p>${item.price}</p>
-        </div>
-        <div class="quantityDiv">
-            <button><i class="ri-subtract-line"></i></button><span class="cartProductQty">${item.quantity}<button><i class="ri-add-line"></i></button><i class="ri-close-line"></i>
     `
+}
+
+cartProducts.addEventListener("click", (e)=>{
+    let itemFound = cart.find(obj => obj.id === e.target.closest(".singleCartProduct").dataset.id);
+
+    if(e.target.closest(".addToCart")){
+        addQtyFunc(itemFound);
+    }else if(e.target.closest(".minusCart")){
+        minusQtyFunc(itemFound);
+    }
+});
+
+function addQtyFunc(itemFound){
+    document.querySelector(`#qty-${itemFound.id}`).innerText = ++itemFound.quantity;
+}
+
+function minusQtyFunc(itemFound){
+    document.querySelector(`#qty-${itemFound.id}`).innerText = --itemFound.quantity;
 }
