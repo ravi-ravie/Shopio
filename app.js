@@ -12,6 +12,9 @@ let sidebarClose = document.querySelector(".sidebar-close");
 let cartProducts = document.querySelector(".cart-products");
 let emptyCartDisplay =  document.querySelector(".emptyCartDisplay");
 let cartFooter = document.querySelector(".cart-footer");
+let subtotal = document.querySelector(".subtotal-value");
+let shipping = document.querySelector(".shipping-value");
+let total = document.querySelector(".total-value");
 
 searchIcon.addEventListener("click", ()=>{
     if(document.querySelector(".searchDiv")) return;
@@ -149,7 +152,7 @@ function productLoading(products){
         price.className = "price";
         let cartAdd = document.createElement("button");
         cartAdd.className = "cartAdd";
-        price.innerText = `${products[i].price}`;
+        price.innerText = `$${products[i].price}`;
         itemContainer.dataset.price = products[i].price;
         cartAdd.innerText = "+";
         priceNcart.append(price);
@@ -257,7 +260,7 @@ function AddingToCart(card){
         id : card.dataset.id,
         title : card.querySelector(".cardTitle").innerText,
         quantity : 1,
-        price : card.dataset.price,
+        price : +card.dataset.price,
         
         get totalPrice(){
             return this.price * this.quantity;
@@ -266,6 +269,7 @@ function AddingToCart(card){
     cart.push(item);
     emptyCartFunc();
     displayCartProducts(item, card);
+    priceCalculation();
 }
 
 function displayCartProducts(item, card){
@@ -276,7 +280,7 @@ function displayCartProducts(item, card){
             </div>
             <div class="rightCartDiv">
                 <p>${item.title}</p>
-                <p>${item.price}</p>
+                <p>$${item.price}</p>
             </div>
             <div class="quantityDiv">
                 <button class="minusCart"><i class="ri-subtract-line"></i></button><span id="qty-${item.id}">${item.quantity}</span><button class="addToCart"><i class="ri-add-line"></i></button><i class="ri-close-line singleCartRemove"></i>
@@ -301,13 +305,13 @@ cartProducts.addEventListener("click", (e)=>{
 
 function addQtyFunc(itemFound){
     document.querySelector(`#qty-${itemFound.id}`).innerText = ++itemFound.quantity;
-
+    priceCalculation();
 }
 
 function minusQtyFunc(itemFound){
     let qtySpan = document.querySelector(`#qty-${itemFound.id}`)
     qtySpan.innerText = --itemFound.quantity;
-
+    priceCalculation();
     if(itemFound.quantity <= 0){
         removeFromArray(itemFound.id,qtySpan);
     }
@@ -328,6 +332,7 @@ function removeFromArray(uniqID, target){
         cart.splice(idx,1);
     target.closest(".singleCartProduct").remove();
     emptyCartFunc();
+    priceCalculation();
 }
 
 function emptyCartFunc(){
@@ -338,4 +343,30 @@ function emptyCartFunc(){
         emptyCartDisplay.classList.remove("hidden");
         cartFooter.classList.add("hidden");
     }
+}
+
+// cart price calculation
+
+function priceCalculation(){
+    let subtotalVal =0;
+    let shippingval =0;
+
+    subtotal.innerText = 0;
+    cart.forEach((item, idx)=>{
+        subtotalVal += item.totalPrice;
+        subtotal.innerText =`$${subtotalVal.toFixed(2)}`;
+    });
+
+    if(subtotalVal <50){
+        shippingVal = 9.99;
+        shipping.innerText = `$${shippingVal.toFixed(2)}`;
+    }else if(subtotalVal <99.99){
+        shippingVal = 4.99;
+        shipping.innerText = `$${shippingVal}`;
+    }else{
+        shippingVal = 0;
+        shipping.innerText = "FREE";
+    }
+
+    total.innerText = `$${(subtotalVal + shippingVal).toFixed(2)}`;
 }
