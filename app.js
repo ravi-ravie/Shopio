@@ -276,7 +276,7 @@ function displayCartProducts(item, card){
                 <p>${item.price}</p>
             </div>
             <div class="quantityDiv">
-                <button class="minusCart"><i class="ri-subtract-line"></i></button><span id="qty-${item.id}">${item.quantity}</span><button class="addToCart"><i class="ri-add-line"></i></button><i class="ri-close-line"></i>
+                <button class="minusCart"><i class="ri-subtract-line"></i></button><span id="qty-${item.id}">${item.quantity}</span><button class="addToCart"><i class="ri-add-line"></i></button><i class="ri-close-line singleCartRemove"></i>
             </div>
         </div>
     `
@@ -284,18 +284,43 @@ function displayCartProducts(item, card){
 
 cartProducts.addEventListener("click", (e)=>{
     let itemFound = cart.find(obj => obj.id === e.target.closest(".singleCartProduct").dataset.id);
+    if(!itemFound)return;
 
     if(e.target.closest(".addToCart")){
         addQtyFunc(itemFound);
     }else if(e.target.closest(".minusCart")){
+        e.stopPropagation();
         minusQtyFunc(itemFound);
     }
 });
+
+// cart in/decrease qty
 
 function addQtyFunc(itemFound){
     document.querySelector(`#qty-${itemFound.id}`).innerText = ++itemFound.quantity;
 }
 
 function minusQtyFunc(itemFound){
-    document.querySelector(`#qty-${itemFound.id}`).innerText = --itemFound.quantity;
+    let qtySpan = document.querySelector(`#qty-${itemFound.id}`)
+    qtySpan.innerText = --itemFound.quantity;
+
+    if(itemFound.quantity <= 0){
+        removeFromArray(itemFound.id,qtySpan);
+    }
+}
+
+// cart remove product
+
+cartProducts.addEventListener("click", (e)=>{
+    if(e.target.closest(".singleCartRemove")){
+        e.stopPropagation();
+        removeFromArray(e.target.closest(".singleCartProduct").dataset.id, e.target);
+    }
+})
+
+function removeFromArray(uniqID, target){
+    let idx = cart.findIndex(obj => obj.id === uniqID);
+    if(idx !== -1)
+        cart.splice(idx,1);
+    target.closest(".singleCartProduct").remove();
 }
