@@ -10,6 +10,8 @@ let sidebar = document.querySelector(".sidebar");
 let cartIcon = document.querySelector(".cart-icon");
 let sidebarClose = document.querySelector(".sidebar-close");
 let cartProducts = document.querySelector(".cart-products");
+let emptyCartDisplay =  document.querySelector(".emptyCartDisplay");
+let cartFooter = document.querySelector(".cart-footer");
 
 searchIcon.addEventListener("click", ()=>{
     if(document.querySelector(".searchDiv")) return;
@@ -250,7 +252,7 @@ function AddingToCart(card){
         addQtyFunc(itemFound)
         return;
     }
-    
+
     const item = {
         id : card.dataset.id,
         title : card.querySelector(".cardTitle").innerText,
@@ -262,6 +264,7 @@ function AddingToCart(card){
         }
     }
     cart.push(item);
+    emptyCartFunc();
     displayCartProducts(item, card);
 }
 
@@ -298,6 +301,7 @@ cartProducts.addEventListener("click", (e)=>{
 
 function addQtyFunc(itemFound){
     document.querySelector(`#qty-${itemFound.id}`).innerText = ++itemFound.quantity;
+
 }
 
 function minusQtyFunc(itemFound){
@@ -323,4 +327,15 @@ function removeFromArray(uniqID, target){
     if(idx !== -1)
         cart.splice(idx,1);
     target.closest(".singleCartProduct").remove();
+    emptyCartFunc();
+}
+
+function emptyCartFunc(){
+    if(cart.length !== 0){
+        emptyCartDisplay.classList.add("hidden");
+        cartFooter.classList.remove("hidden");
+    }else if(cart.length === 0){
+        emptyCartDisplay.classList.remove("hidden");
+        cartFooter.classList.add("hidden");
+    }
 }
