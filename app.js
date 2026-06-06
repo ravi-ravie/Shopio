@@ -15,6 +15,7 @@ let cartFooter = document.querySelector(".cart-footer");
 let subtotal = document.querySelector(".subtotal-value");
 let shipping = document.querySelector(".shipping-value");
 let total = document.querySelector(".total-value");
+let fixedCart = document.querySelector(".fixed-cart");
 
 searchIcon.addEventListener("click", ()=>{
     if(document.querySelector(".searchDiv")) return;
@@ -209,7 +210,7 @@ document.addEventListener("click", (e)=>{
     if(!productsContainer.contains(e.target) && !productDrawer.contains(e.target))
         closeDrawerFunc();
 
-    if(isSidebar===true && !sidebar.contains(e.target) && e.target !== cartIcon){
+    if(isSidebar===true && !sidebar.contains(e.target) && e.target !== cartIcon && !fixedCart.contains(e.target)){
         closeSidebar();
     }
 
@@ -223,12 +224,15 @@ document.querySelector(".product-drawer button").addEventListener("click",()=>{
 // Sidebar
 let isSidebar = false;
 
-cartIcon.addEventListener("click", ()=>{
+fixedCart.addEventListener("click", toggleSidebar);
+cartIcon.addEventListener("click", toggleSidebar);
+
+function toggleSidebar(){
     if(!isSidebar)
         sidebarFunc();
     else
         closeSidebar();
-});
+}
 
 function sidebarFunc(){
     sidebar.classList.add("open");
@@ -331,13 +335,11 @@ cartProducts.addEventListener("click", (e)=>{
 function removeFromArray(uniqID, target){
     let cartProductDiv =  target.closest(".singleCartProduct")
     cartProductDiv.classList.add("removeCartProduct")
-    console.log(cartProductDiv);
     cartProductDiv.addEventListener("transitionend", ()=>{
         let idx = cart.findIndex(obj => obj.id === uniqID);
         if(idx !== -1)
             cart.splice(idx,1);
         cartProductDiv.remove();
-        console.log("deleted");
         emptyCartFunc();
         priceCalculation();
     });
@@ -349,14 +351,13 @@ function emptyCartFunc(){
     if(cart.length !== 0){
         emptyCartDisplay.classList.add("hidden");
         cartFooter.classList.remove("hidden");
+        fixedCart.classList.remove("hidden");
     }else if(cart.length === 0){
         emptyCartDisplay.classList.remove("hidden");
         cartFooter.classList.add("hidden");
+        fixedCart.classList.add("hidden");
     }
 }
-
-
-
 
 // cart price calculation
 
@@ -383,3 +384,5 @@ function priceCalculation(){
 
     total.innerText = `$${(subtotalVal + shippingVal).toFixed(2)}`;
 }
+
+

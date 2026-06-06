@@ -21,6 +21,7 @@ body{
     bottom: 0;
     transform: translateY(100%);
     transition: transform 0.3s ease;
+    z-index: 2;
 }
 
 .bottom-drawer.open{
@@ -40,4 +41,10 @@ body{
 .removeCartProduct{
     transform: translateX(-50%);
     opacity: 0;
+}
+
+.fixed-cart{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
 }
