@@ -18,7 +18,10 @@
                 <a id="logo-text" href="index.html">Shopio</a>
             </div>
             <i class="ri-search-line search-icon"></i>
-            <i class="ri-shopping-cart-line cart-icon"></i>
+            <div class="cart-wrapper">
+                <i class="ri-shopping-cart-line cart-icon"></i>
+                <span class="cartSize"></span>
+            </div>
         </div>
     </nav>
     
@@ -81,7 +84,7 @@
         </div>
     </div>
 
-    <button class="fixed-cart hidden"><i class="ri-shopping-cart-line"></i><span></span></button>
+    <button class="fixed-cart hidden"><i class="ri-shopping-cart-line"></i><span class="cartSize"></span></button>
 
     <script src="app.js"></script>
 </body>

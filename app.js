@@ -16,6 +16,7 @@ let subtotal = document.querySelector(".subtotal-value");
 let shipping = document.querySelector(".shipping-value");
 let total = document.querySelector(".total-value");
 let fixedCart = document.querySelector(".fixed-cart");
+let cartSize = document.querySelectorAll(".cartSize");
 
 searchIcon.addEventListener("click", ()=>{
     if(document.querySelector(".searchDiv")) return;
@@ -274,6 +275,7 @@ function AddingToCart(card){
     emptyCartFunc();
     displayCartProducts(item, card);
     priceCalculation();
+    cartSizeFunc();
 }
 
 function displayCartProducts(item, card){
@@ -342,6 +344,7 @@ function removeFromArray(uniqID, target){
         cartProductDiv.remove();
         emptyCartFunc();
         priceCalculation();
+        cartSizeFunc();
     });
 }
 
@@ -385,4 +388,8 @@ function priceCalculation(){
     total.innerText = `$${(subtotalVal + shippingVal).toFixed(2)}`;
 }
 
-
+function cartSizeFunc(){
+    cartSize.forEach(badge =>{
+        badge.innerText = cart.length;
+    });
+}
