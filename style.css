@@ -31,3 +31,13 @@ body{
 .hidden{
     display: none;
 }
+
+/* remove product from cart animation */
+.singleCartProduct{
+    transition: transform 0.4s ease-in, opacity 0.3s ease-in;
+}
+
+.removeCartProduct{
+    transform: translateX(-50%);
+    opacity: 0;
+}

@@ -317,6 +317,8 @@ function minusQtyFunc(itemFound){
     }
 }
 
+
+
 // cart remove product
 
 cartProducts.addEventListener("click", (e)=>{
@@ -327,13 +329,21 @@ cartProducts.addEventListener("click", (e)=>{
 })
 
 function removeFromArray(uniqID, target){
-    let idx = cart.findIndex(obj => obj.id === uniqID);
-    if(idx !== -1)
-        cart.splice(idx,1);
-    target.closest(".singleCartProduct").remove();
-    emptyCartFunc();
-    priceCalculation();
+    let cartProductDiv =  target.closest(".singleCartProduct")
+    cartProductDiv.classList.add("removeCartProduct")
+    console.log(cartProductDiv);
+    cartProductDiv.addEventListener("transitionend", ()=>{
+        let idx = cart.findIndex(obj => obj.id === uniqID);
+        if(idx !== -1)
+            cart.splice(idx,1);
+        cartProductDiv.remove();
+        console.log("deleted");
+        emptyCartFunc();
+        priceCalculation();
+    });
 }
+
+
 
 function emptyCartFunc(){
     if(cart.length !== 0){
@@ -344,6 +354,9 @@ function emptyCartFunc(){
         cartFooter.classList.add("hidden");
     }
 }
+
+
+
 
 // cart price calculation
 
