@@ -250,9 +250,18 @@ function closeSidebar(){
 }
 
 // cart
-const cart = [];
+let cart = [];
 
+document.addEventListener("DOMContentLoaded", ()=>{
+    cart = JSON.parse(localStorage.getItem("cartKey"));
 
+    cart.forEach(item => {
+        displayCartProducts(item);
+    });
+    emptyCartFunc();
+    priceCalculation();
+    cartSizeFunc();
+});
 
 function AddingToCart(card){
     let itemFound = cart.find(obj => obj.id === card.dataset.id);
@@ -266,23 +275,22 @@ function AddingToCart(card){
         title : card.querySelector(".cardTitle").innerText,
         quantity : 1,
         price : +card.dataset.price,
+        imgUrl : card.querySelector("img").src,
         
-        get totalPrice(){
-            return this.price * this.quantity;
-        }
     }
     cart.push(item);
+    localStorage.setItem("cartKey", JSON.stringify(cart));
     emptyCartFunc();
-    displayCartProducts(item, card);
+    displayCartProducts(item);
     priceCalculation();
     cartSizeFunc();
 }
 
-function displayCartProducts(item, card){
+function displayCartProducts(item){
     cartProducts.innerHTML += `
         <div class="singleCartProduct"  data-id="${item.id}">
             <div class="leftCartDiv">
-                <img class="cartImg" src="${card.querySelector("img").src}" height="40px"/>
+                <img class="cartImg" src="${item.imgUrl}" height="40px"/>
             </div>
             <div class="rightCartDiv">
                 <p>${item.title}</p>
@@ -311,6 +319,7 @@ cartProducts.addEventListener("click", (e)=>{
 
 function addQtyFunc(itemFound){
     document.querySelector(`#qty-${itemFound.id}`).innerText = ++itemFound.quantity;
+    localStorage.setItem("cartKey", JSON.stringify(cart));
     priceCalculation();
 }
 
@@ -318,6 +327,8 @@ function minusQtyFunc(itemFound){
     let qtySpan = document.querySelector(`#qty-${itemFound.id}`)
     qtySpan.innerText = --itemFound.quantity;
     priceCalculation();
+    localStorage.setItem("cartKey", JSON.stringify(cart));
+
     if(itemFound.quantity <= 0){
         removeFromArray(itemFound.id,qtySpan);
     }
@@ -342,12 +353,12 @@ function removeFromArray(uniqID, target){
         if(idx !== -1)
             cart.splice(idx,1);
         cartProductDiv.remove();
+        localStorage.setItem("cartKey", JSON.stringify(cart));
         emptyCartFunc();
         priceCalculation();
         cartSizeFunc();
     });
 }
-
 
 
 function emptyCartFunc(){
@@ -370,7 +381,7 @@ function priceCalculation(){
 
     subtotal.innerText = 0;
     cart.forEach((item, idx)=>{
-        subtotalVal += item.totalPrice;
+        subtotalVal += item.quantity * item.price;
         subtotal.innerText =`$${subtotalVal.toFixed(2)}`;
     });
 
