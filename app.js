@@ -164,6 +164,7 @@ function productLoading(products){
         voteCount.className = "voteCount";
         voting.innerText = `${products[i].rating.rate}`;
         voteCount.innerText =  `${products[i].rating.count}`;
+        starGenerateFunc(stars, voting.innerText);
         rating.append(stars);
         rating.append(voting);
         rating.append(voteCount);
@@ -181,6 +182,18 @@ function productLoading(products){
         priceNcart.append(price);
         priceNcart.append(cartAdd);
 
+    }
+}
+
+// star generating 
+function starGenerateFunc(star, ratingVal){
+    fullStar = `<i class="ri-star-s-fill"></i>`;
+    halfStar = `<i class="ri-star-half-s-line"></i>`;
+    emptyStar = `<i class="ri-star-s-line"></i>`
+    if(ratingVal - Math.floor(ratingVal) >= 0.5){
+        star.innerHTML = fullStar.repeat(Math.floor(ratingVal)) + halfStar + emptyStar.repeat(4- Math.floor(ratingVal));
+    }else{
+        star.innerHTML = fullStar.repeat(Math.floor(ratingVal)) + emptyStar.repeat(5 - Math.floor(ratingVal));
     }
 }
 
@@ -211,7 +224,7 @@ function drawerFunc(card){
     isbottomsheet = true;
     document.querySelector(".drawer-img").src = card.querySelector("img").src;
     document.querySelector(".drawer-category").innerText = card.querySelector(".upper-category").innerText;
-    document.querySelector(".drawer-stars").innerText = card.querySelector(".stars").innerText;
+    document.querySelector(".drawer-stars").innerHTML = card.querySelector(".stars").innerHTML;
     document.querySelector(".drawer-vote").innerText = card.querySelector(".voting").innerText;
     document.querySelector(".drawer-count").innerText = card.querySelector(".voteCount").innerText;
     document.querySelector(".drawer-description").innerText = card.dataset.description;

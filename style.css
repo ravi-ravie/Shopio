@@ -52,3 +52,7 @@ body{
 .cart-wrapper{
     display: inline-flex;
 }
+
+.stars, .drawer-stars{
+    color: #ff9500;
+}
