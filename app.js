@@ -31,12 +31,33 @@ searchIcon.addEventListener("click", ()=>{
         <i class="ri-close-line close-button"></i>
     `;
 
+    let searchBar = searchDiv.querySelector("input");
+    searchBar.addEventListener("input",()=>{
+        searchFilterFunc(searchBar.value.toLowerCase().trim());
+    });
+
+
     searchDiv.querySelector(".close-button").addEventListener("click", ()=>{
         searchDiv.remove();
+        searchBar.value = "";
+        displayProducts();
     });
 });
 
 
+// search filter
+let allProducts = [];
+function searchFilterFunc(inputValue){
+    let filteredProducts =[];
+    allProducts.forEach(singleproduct => {
+        if(singleproduct.title.toLowerCase().includes(inputValue) || singleproduct.category.toLowerCase().includes(inputValue)){
+            filteredProducts.push(singleproduct);
+            console.log(filteredProducts);
+        }
+    });
+    productLoading(filteredProducts);
+
+}
 // Category section
 let btn;
 let categories;
@@ -78,7 +99,6 @@ function CategorySelected(btn,ele){
 
 // cards - products
 
-
 function displayProducts(){
     btn.forEach((ele,idx)=>{
         if(idx===0)
@@ -93,7 +113,8 @@ async function callProduct(idx){
 
     if(idx===0){
         let response = await fetch(api);
-        productLoading(await response.json());
+        allProducts = await response.json();
+        productLoading(allProducts);
     }
     else{
         let response = await fetch(`${api}/category/${categories[idx-1]}`);
@@ -401,6 +422,10 @@ function priceCalculation(){
 
 function cartSizeFunc(){
     cartSize.forEach(badge =>{
+        if(cart.length===0){
+            badge.innerText = "";
+            return;
+        }
         badge.innerText = cart.length;
     });
 }
