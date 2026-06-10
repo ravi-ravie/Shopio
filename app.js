@@ -19,8 +19,9 @@ let fixedCart = document.querySelector(".fixed-cart");
 let cartSize = document.querySelectorAll(".cartSize");
 
 searchIcon.addEventListener("click", ()=>{
-    if(document.querySelector(".searchDiv")){
-        searchDiv.remove();
+    let existing = document.querySelector(".searchDiv");
+    if(existing){
+        removeSearchBar(existing);
         return;
     }
 
@@ -37,6 +38,8 @@ searchIcon.addEventListener("click", ()=>{
     let searchBar = searchDiv.querySelector("input");
     searchBar.addEventListener("focus", ()=>{
         searchDiv.classList.add("selected");
+        navbar.style.backdropFilter = "none";
+        navbar.style.background = "rgba(252, 252, 253)";
     });
 
     searchBar.addEventListener("blur", ()=>{
@@ -50,11 +53,18 @@ searchIcon.addEventListener("click", ()=>{
 
 
     searchDiv.querySelector(".close-button").addEventListener("click", ()=>{
-        searchDiv.remove();
-        searchBar.value = "";
+        removeSearchBar(searchDiv);
         displayProducts();
     });
 });
+
+function removeSearchBar(searchDiv){
+    navbar.style.backdropFilter = "blur(30px)";
+    navbar.style.background = "rgba(252, 252, 253,0.2)";
+    searchDiv.classList.add("slideup");
+    console.log(searchDiv.classList);
+    setTimeout(()=>searchDiv.remove(), 200);
+}
 
 
 // search filter

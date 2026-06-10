@@ -98,6 +98,11 @@ nav{
     color: var(--color-lightWhite);
     gap: 7px;
     margin-top: 0.5rem;
+    animation: slidedownNav 0.3s ease;
+}
+
+.searchDiv.slideup{
+    animation: slideupNav 0.5s ease ;
 }
 
 .searchDiv:active{
@@ -120,6 +125,32 @@ nav{
     background: white;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, .07);
 }
+
+/* SEARCH DIV ANIMATION */
+@keyframes slidedownNav{
+    0%{
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    100%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideupNav{
+    0%{
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100%{        
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+}
+
 
 /* MAIN */
 main{
