@@ -19,7 +19,10 @@ let fixedCart = document.querySelector(".fixed-cart");
 let cartSize = document.querySelectorAll(".cartSize");
 
 searchIcon.addEventListener("click", ()=>{
-    if(document.querySelector(".searchDiv")) return;
+    if(document.querySelector(".searchDiv")){
+        searchDiv.remove();
+        return;
+    }
 
     let searchDiv = document.createElement("div");
     searchDiv.className = "searchDiv";
@@ -32,6 +35,15 @@ searchIcon.addEventListener("click", ()=>{
     `;
 
     let searchBar = searchDiv.querySelector("input");
+    searchBar.addEventListener("focus", ()=>{
+        searchDiv.classList.add("selected");
+    });
+
+    searchBar.addEventListener("blur", ()=>{
+        searchDiv.classList.remove("selected");
+    })
+
+    searchBar.focus();
     searchBar.addEventListener("input",()=>{
         searchFilterFunc(searchBar.value.toLowerCase().trim());
     });
