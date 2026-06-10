@@ -1,14 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 :root{
+    --font-inter: 'Inter', 'sans-serif';
     --color-bg: #fafafa;
+    --color-iconLight: #6e6e73;
+    --color-black: #1d1d1f;
+    --color-lightWhite: #aeaeb2;
+    --color-grey: #f0f0f2;
 }
 
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body{
     background-color: var(--color-bg);
+    font-family: var(--font-inter);
 }
 
 .active{
@@ -32,6 +41,97 @@ body{
 .hidden{
     display: none;
 }
+
+
+/* NAVBAR */
+nav{
+    padding: 0.5rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(252, 252, 253,0.2);
+    backdrop-filter: blur(30px);
+}
+.nav-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 0.20rem;
+}
+
+.logo-wrapper img{
+    width: clamp(2.1rem, 2.2rem, 2.4rem);
+}
+
+.logo-wrapper a{
+    color: black;
+    text-decoration: none;
+    margin-top: 5px;
+    color: var(--color-lightWhite);
+}
+
+.logo-wrapper b{
+    color: var(--color-black);
+}
+
+.right-nav{
+    font-size: 1.25rem;
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 5px;
+    color: var(--color-iconLight);
+}
+
+/* SEARCH SECTION */
+.searchDiv{
+    background: var(--color-grey);
+    display: flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.75rem 1rem;
+    color: var(--color-lightWhite);
+    gap: 7px;
+    margin-top: 0.5rem;
+}
+
+.searchDiv:active{
+    border: 1px solid black;
+}
+
+.searchBar{
+    background: none;
+    border: none;
+    outline: none;
+    flex: 1;
+}
+
+.searchBar::placeholder{
+    color: var(--color-lightWhite);
+}
+
+/* MAIN */
+main{
+    padding: 3rem 1.2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* remove product from cart animation */
 .singleCartProduct{

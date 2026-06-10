@@ -27,7 +27,7 @@ searchIcon.addEventListener("click", ()=>{
 
     searchDiv.innerHTML =  `
         <i class="ri-search-line"></i>
-        <input class="searchBar" placeholder="Search products">
+        <input class="searchBar" placeholder="Search products...">
         <i class="ri-close-line close-button"></i>
     `;
 
