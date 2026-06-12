@@ -155,18 +155,18 @@ function productLoading(products){
         productsContainer.append(itemContainer);
 
         let upperDiv = document.createElement("div");
+        upperDiv.className = "upperDiv"
         let lowerDiv = document.createElement("div");
+        lowerDiv.className = "lowerDiv";
         itemContainer.append(upperDiv);
         itemContainer.append(lowerDiv);
 
         let upperCategory = document.createElement("p");
         upperCategory.className = "upper-category";
         let img = document.createElement("img");
-        img.className = ""
+        img.className = "productImg"
         upperCategory.innerText = `${products[i].category}`;
         img.src = `${products[i].image}`;
-        img.width = 100;
-        img.height = 100;
         upperDiv.append(upperCategory);
         upperDiv.append(img);
 
