@@ -248,9 +248,10 @@ function drawerFunc(card){
     isbottomsheet = true;
     document.querySelector(".drawer-img").src = card.querySelector("img").src;
     document.querySelector(".drawer-category").innerText = card.querySelector(".upper-category").innerText;
+    document.querySelector(".drawer-title").innerText = card.querySelector(".cardTitle").innerText;
     document.querySelector(".drawer-stars").innerHTML = card.querySelector(".stars").innerHTML;
-    document.querySelector(".drawer-vote").innerText = card.querySelector(".voting").innerText;
-    document.querySelector(".drawer-count").innerText = card.querySelector(".voteCount").innerText;
+    document.querySelector(".drawer-vote").innerText = `${card.querySelector(".voting").innerText}/5 ·`;
+    document.querySelector(".drawer-count").innerText = `${card.querySelector(".voteCount").innerText} reviews`;
     document.querySelector(".drawer-description").innerText = card.dataset.description;
     document.querySelector(".drawer-price").innerText = card.querySelector(".price").innerText;
 }
