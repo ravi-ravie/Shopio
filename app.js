@@ -176,6 +176,7 @@ function productLoading(products){
         lowerDiv.append(title);
 
         let rating = document.createElement("div");
+        rating.className = "ratingContainer";
         lowerDiv.append(rating);
 
         let stars = document.createElement("span");
@@ -185,20 +186,21 @@ function productLoading(products){
         let voteCount = document.createElement("span");
         voteCount.className = "voteCount";
         voting.innerText = `${products[i].rating.rate}`;
-        voteCount.innerText =  `${products[i].rating.count}`;
+        voteCount.innerText =  `(${products[i].rating.count})`;
         starGenerateFunc(stars, voting.innerText);
         rating.append(stars);
         rating.append(voting);
         rating.append(voteCount);
 
         let priceNcart = document.createElement("div");
+        priceNcart.className = "priceNcart";
         lowerDiv.append(priceNcart);
 
         let price = document.createElement("span");
         price.className = "price";
         let cartAdd = document.createElement("button");
         cartAdd.className = "cartAdd";
-        price.innerText = `$${products[i].price}`;
+        price.innerText = `$${(products[i].price).toFixed(2)}`;
         itemContainer.dataset.price = products[i].price;
         cartAdd.innerText = "+";
         priceNcart.append(price);
