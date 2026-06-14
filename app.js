@@ -17,6 +17,7 @@ let shipping = document.querySelector(".shipping-value");
 let total = document.querySelector(".total-value");
 let fixedCart = document.querySelector(".fixed-cart");
 let cartSize = document.querySelectorAll(".cartSize");
+let backdrop = document.querySelector(".backdrop");
 
 searchIcon.addEventListener("click", ()=>{
     let existing = document.querySelector(".searchDiv");
@@ -245,6 +246,7 @@ productsContainer.addEventListener("click", (e)=>{
 function drawerFunc(card){
     DrawerActiveCard = card;
     productDrawer.classList.add("open");
+    backdrop.classList.add("open");
     isbottomsheet = true;
     document.querySelector(".drawer-img").src = card.querySelector("img").src;
     document.querySelector(".drawer-category").innerText = card.querySelector(".upper-category").innerText;
@@ -256,8 +258,10 @@ function drawerFunc(card){
     document.querySelector(".drawer-price").innerText = card.querySelector(".price").innerText;
 }
 
+
 function closeDrawerFunc(){
     productDrawer.classList.remove("open");
+    backdrop.classList.remove("open");
     isbottomsheet = false;
     DrawerActiveCard = null;
 }
@@ -296,6 +300,7 @@ function toggleSidebar(){
 
 function sidebarFunc(){
     sidebar.classList.add("open");
+    backdrop.classList.add("open");
     isSidebar = true;
 }
 
@@ -305,6 +310,7 @@ sidebarClose.addEventListener("click", ()=>{
 
 function closeSidebar(){
     sidebar.classList.remove("open");
+    backdrop.classList.remove("open");
     isSidebar = false;
 }
 

@@ -282,22 +282,44 @@ main{
     border-radius: 999px;
 }
 
-/* Bottom sheet */
+/* BACKDROP */
+.backdrop{
+    position: fixed;
+    inset:0;
+    z-index: 125;
+    background: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.backdrop.open{
+    opacity: 1;
+    visibility: visible;
+}
+
+/* DRAWER */
 .bottom-drawer{
     position: fixed;
     bottom: 0;
     transform: translateY(100%);
     transition: transform 0.3s ease;
-    z-index: 2;
+    z-index: 150;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    max-height: 92vh;
 }
 
 .bottom-drawer.open{
     transform: translateY(0);
 }
 
+/* BOTTOM SHEET */
+
 .product-drawer{
     background: white;
-    z-index: 150;
+    overflow: hidden;
 }
 
 .drawer-upper{
@@ -381,6 +403,21 @@ main{
     font-weight: 600;
     font-family: var(--font-inter);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
