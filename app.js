@@ -358,11 +358,11 @@ function displayCartProducts(item){
                 <img class="cartImg" src="${item.imgUrl}"/>
             </div>
             <div class="rightCartDiv">
-                <p>${item.title}</p>
-                <p>$${item.price}</p>
-            </div>
-            <div class="quantityDiv">
-                <button class="minusCart"><i class="ri-subtract-line"></i></button><span id="qty-${item.id}">${item.quantity}</span><button class="addToCart"><i class="ri-add-line"></i></button><i class="ri-close-line singleCartRemove"></i>
+                <p class="cartTitle">${item.title}</p>
+                <p class="cartPrice">$${item.price}</p>
+                <div class="quantityDiv">
+                    <button class="minusCart miniBtn"><i class="ri-subtract-line"></i></button><span id="qty-${item.id}">${item.quantity}</span><button class="addToCart miniBtn"><i class="ri-add-line"></i></button><i class="ri-close-line singleCartRemove"></i>
+                </div>
             </div>
         </div>
     `
