@@ -355,7 +355,7 @@ function displayCartProducts(item){
     cartProducts.innerHTML += `
         <div class="singleCartProduct"  data-id="${item.id}">
             <div class="leftCartDiv">
-                <img class="cartImg" src="${item.imgUrl}" height="40px"/>
+                <img class="cartImg" src="${item.imgUrl}"/>
             </div>
             <div class="rightCartDiv">
                 <p>${item.title}</p>
