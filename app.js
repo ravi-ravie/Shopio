@@ -453,12 +453,18 @@ function priceCalculation(){
     if(subtotalVal <50){
         shippingVal = 9.99;
         shipping.innerText = `$${shippingVal.toFixed(2)}`;
+        shipping.style.color = "";
+        shipping.style.fontWeight = "";
     }else if(subtotalVal <99.99){
         shippingVal = 4.99;
         shipping.innerText = `$${shippingVal}`;
+        shipping.style.color = "";
+        shipping.style.fontWeight = "";
     }else{
         shippingVal = 0;
         shipping.innerText = "FREE";
+        shipping.style.color = "#34c759";
+        shipping.style.fontWeight = "600";
     }
 
     total.innerText = `$${(subtotalVal + shippingVal).toFixed(2)}`;
