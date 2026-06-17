@@ -271,7 +271,7 @@ drawerClose.addEventListener("click", ()=>{
 });
 
 document.addEventListener("click", (e)=>{
-    if(!productsContainer.contains(e.target) && !productDrawer.contains(e.target))
+    if(!productsContainer.contains(e.target) && !productDrawer.contains(e.target) && e.target !== cartIcon && !fixedCart.contains(e.target) && !sidebar.contains(e.target))
         closeDrawerFunc();
 
     if(isSidebar===true && !sidebar.contains(e.target) && e.target !== cartIcon && !fixedCart.contains(e.target)){
@@ -309,8 +309,11 @@ sidebarClose.addEventListener("click", ()=>{
 });
 
 function closeSidebar(){
+    console.log(backdrop.classList.contains("open"));
+
     sidebar.classList.remove("open");
     backdrop.classList.remove("open");
+    console.log("is it removed");
     isSidebar = false;
 }
 
