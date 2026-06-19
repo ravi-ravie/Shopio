@@ -77,6 +77,7 @@ nav{
     color: var(--color-iconLight);
 }
 
+
 /* SEARCH SECTION */
 .searchDiv{
     background: var(--color-grey);
@@ -114,6 +115,8 @@ nav{
     background: white;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, .07);
 }
+
+
 
 /* SEARCH DIV ANIMATION */
 @keyframes slidedownNav{
@@ -256,6 +259,12 @@ main{
     letter-spacing: .3px;
     margin-right: 4px;
 }
+
+.stars, .drawer-stars{
+    color: #ff9500;
+}
+
+
 
 .priceNcart{
     display: flex;
@@ -492,7 +501,14 @@ main{
     border: 1px solid var(--color-border);
     border-radius: 12px;
     gap: .75rem;
+    transition: transform 0.4s ease-in, opacity 0.3s ease-in;
 }
+
+.removeCartProduct{
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
 
 .leftCartDiv{
     height: 3.5rem;
@@ -569,6 +585,8 @@ main{
     text-align: center;
 }
 
+/* CART ANIMATION */
+
 
 /* Cart Footer */
 .cart-footer{
@@ -608,31 +626,56 @@ main{
     font-weight: 600;
 }
 
-
-
-
-
-/* remove product from cart animation */
-.singleCartProduct{
-    transition: transform 0.4s ease-in, opacity 0.3s ease-in;
-}
-
-.removeCartProduct{
-    transform: translateX(-50%);
-    opacity: 0;
-}
-
+/* FIXED CART */
 .fixed-cart{
     position: fixed;
     bottom: 25px;
     right: 25px;
+    height: 3.5rem;
+    width: 3.5rem;
+    color: white;
+    background: var(--color-black);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .2);
+    animation: popCart .4s cubic-bezier(.175,.885,.32,1.275);
+    font-size: 1.25rem;
 }
 
-.cart-wrapper{
-    display: inline-flex;
+@keyframes popCart{
+    0%{
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-.stars, .drawer-stars{
-    color: #ff9500;
+.fixed-cart span{
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    color: white;
+    background: #ff3b30;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    border: 2px solid var(--color-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: .65rem;
+    font-weight: 700;
+    padding: 0 .3rem;
 }
+
+
+
+
+
 
