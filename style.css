@@ -489,6 +489,10 @@ main{
     overflow-y: auto;
 }
 
+.cart-products::-webkit-scrollbar{
+    scrollbar-width: none;
+}
+
 .singleCartProduct{
     display: flex;
     background: var(--color-bg);
@@ -792,5 +796,36 @@ main{
 
     .upperDiv:hover img{
         transform: scale(1.15);
-    } 
+    }
+
+    /* sidebar */
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        top: 0;
+        right: 0;
+        bottom: auto;
+        width: 25vw;
+        border-radius: 0 0 0 0;
+        transform: translateX(100%);
+        min-height: 100vh;
+    }
+
+    .emptyCartDisplay{
+        display: flex;
+        flex:1;
+        justify-content: center;
+    }
+
+    .cart-footer{
+        margin-top: auto;
+    }
+
+    .cart-products{
+        flex: 1;
+        max-height: none;
+    }
+
+    
 }
