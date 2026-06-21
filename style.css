@@ -770,7 +770,6 @@ main{
         display: flex;
         flex-direction: row;
         max-width: 800px;
-        flex: 0 0 40%;
     }
 
     .drawer-upper{
@@ -786,4 +785,12 @@ main{
     .drawer-close{
         display: none;
     }
+
+    .upperDiv img{
+        transition: transform .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+
+    .upperDiv:hover img{
+        transform: scale(1.15);
+    } 
 }
