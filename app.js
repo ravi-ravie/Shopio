@@ -309,7 +309,7 @@ function closeSidebar(){
 let cart = [];
 
 document.addEventListener("DOMContentLoaded", ()=>{
-    cart = JSON.parse(localStorage.getItem("cartKey"));
+    cart = JSON.parse(localStorage.getItem("cartKey")) || [];
 
     cart.forEach(item => {
         displayCartProducts(item);

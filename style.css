@@ -318,6 +318,7 @@ body::-webkit-scrollbar{
     height: 2rem;
     width: 2rem;
     border-radius: 999px;
+    border: none;
 }
 
 /* BACKDROP */
@@ -445,6 +446,7 @@ body::-webkit-scrollbar{
     padding: 0.75rem 1.25rem;
     font-weight: 600;
     font-family: var(--font-inter);
+    border: none
 }
 
 /* SIDEBAR CART-DRAWER */
@@ -685,6 +687,7 @@ body::-webkit-scrollbar{
     box-shadow: 0 4px 20px rgba(0, 0, 0, .2);
     animation: popCart .4s cubic-bezier(.175,.885,.32,1.275);
     font-size: 1.25rem;
+    border: none;
 }
 
 @keyframes popCart{
