@@ -21,9 +21,6 @@ body{
     font-family: var(--font-inter);
 }
 
-
-
-
 .hidden{
     display: none !important; 
 }
@@ -79,25 +76,13 @@ nav{
 
 
 /* SEARCH SECTION */
-.searchDiv{
-    background: var(--color-grey);
-    display: flex;
-    align-items: center;
-    border-radius: 999px;
-    padding: 0.75rem 1rem;
-    color: var(--color-lightWhite);
-    gap: 7px;
-    margin-top: 0.5rem;
-    animation: slidedownNav 0.3s ease;
-}
+
 
 .searchDiv.slideup{
     animation: slideupNav .3s ease ;
 }
 
-.searchDiv:active{
-    border: 1px solid black;
-}
+
 
 .searchBar{
     background: none;
@@ -111,9 +96,7 @@ nav{
 }
 
 .selected{
-    border: 1px solid black;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, .07);
+    background-color: #e3e3e3 !important;
 }
 
 
@@ -133,10 +116,12 @@ nav{
 
 @keyframes slideupNav{
     0%{
+        transform: translateY(0);
         opacity: 1;
     }
 
     100%{        
+        transform: translateY(-20px);
         opacity: 0;
     }
 }
@@ -684,6 +669,24 @@ main{
     padding: 0 .3rem;
 }
 
+/* RESPONSIVE - BELOW 600 */
+@media (max-width : 599px){
+    .searchDiv{
+    background: var(--color-grey);
+    display: flex;
+    position: fixed;
+    top: 2.7rem;
+    width: 100%;
+    left: 0;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: var(--color-lightWhite);
+    gap: 7px;
+    margin-top: 0.5rem;
+    animation: slidedownNav 0.3s ease;
+    transition: background-color .4s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+}
 
 /* RESPONSIVE - 600PX */
 
@@ -724,11 +727,44 @@ main{
     .product-drawer{
         border-radius: 16px
     }
+
+    .searchDiv{
+    background: var(--color-grey);
+    display: flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.75rem 1rem;
+    color: var(--color-lightWhite);
+    gap: 7px;
+    margin-top: 0.5rem;
+    animation: slidedownNav 0.3s ease;
+    transition: background-color .4s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    }
+    
+    .search-icon{
+        display: none;
+    }
+
+    .searchDiv, .searchDiv.hidden{
+        display: flex !important;
+        margin: 0 0;
+        max-width: 400px;
+        flex: 1;
+    }
+
+    .close-button{
+        display: none;
+    }
 }
 
 /* RESPONSIVE - 900PX */
 @media (min-width : 900px){
     .products-container{
         grid-template-columns: repeat(4,1fr);
+    }
+
+    .fixed-cart{
+        display: none;
     }
 }

@@ -19,53 +19,40 @@ let fixedCart = document.querySelector(".fixed-cart");
 let cartSize = document.querySelectorAll(".cartSize");
 let backdrop = document.querySelector(".backdrop");
 let modalOverlay = document.querySelector(".modal-overlay");
+let rightNav = document.querySelector(".right-nav");
+let navWrapper = document.querySelector(".nav-wrapper");
+let searchDiv = document.querySelector(".searchDiv");
+let searchBar = searchDiv.querySelector("input");
+
+searchBar.addEventListener("focus", ()=>{
+    searchDiv.classList.add("selected");
+});
+
+searchBar.addEventListener("blur", ()=>{
+    searchDiv.classList.remove("selected");
+})
+
+searchBar.addEventListener("input",()=>{
+    searchFilterFunc(searchBar.value.toLowerCase().trim());
+});
 
 searchIcon.addEventListener("click", ()=>{
-    let existing = document.querySelector(".searchDiv");
-    if(existing){
-        removeSearchBar(existing);
-        return;
-    }
-
-    let searchDiv = document.createElement("div");
-    searchDiv.className = "searchDiv";
-    navbar.append(searchDiv);
-
-    searchDiv.innerHTML =  `
-        <i class="ri-search-line"></i>
-        <input class="searchBar" placeholder="Search products...">
-        <i class="ri-close-line close-button"></i>
-    `;
-
-    let searchBar = searchDiv.querySelector("input");
-    searchBar.addEventListener("focus", ()=>{
-        searchDiv.classList.add("selected");
-        navbar.style.backdropFilter = "none";
-        navbar.style.background = "rgba(252, 252, 253)";
-    });
-
-    searchBar.addEventListener("blur", ()=>{
-        searchDiv.classList.remove("selected");
-    })
-
+    searchDiv.classList.remove("hidden");
     searchBar.focus();
-    searchBar.addEventListener("input",()=>{
-        searchFilterFunc(searchBar.value.toLowerCase().trim());
-    });
+});
 
-
-    searchDiv.querySelector(".close-button").addEventListener("click", ()=>{
-        removeSearchBar(searchDiv);
-        displayProducts();
-    });
+searchDiv.querySelector(".close-button").addEventListener("click", ()=>{
+    removeSearchBar(searchDiv);
+    displayProducts();
 });
 
 function removeSearchBar(searchDiv){
-    navbar.style.backdropFilter = "blur(30px)";
-    navbar.style.background = "rgba(252, 252, 253,0.2)";
     searchDiv.classList.add("slideup");
-    console.log(searchDiv.classList);
-    setTimeout(()=>searchDiv.remove(), 200);
+    setTimeout(()=>{
+    searchDiv.classList.add("hidden");
+    searchDiv.classList.remove("slideup");
+    },300);
+    searchBar.value = "";
 }
 
 
@@ -76,7 +63,6 @@ function searchFilterFunc(inputValue){
     allProducts.forEach(singleproduct => {
         if(singleproduct.title.toLowerCase().includes(inputValue) || singleproduct.category.toLowerCase().includes(inputValue)){
             filteredProducts.push(singleproduct);
-            console.log(filteredProducts);
         }
     });
     productLoading(filteredProducts);
@@ -313,11 +299,8 @@ sidebarClose.addEventListener("click", ()=>{
 });
 
 function closeSidebar(){
-    console.log(backdrop.classList.contains("open"));
-
     sidebar.classList.remove("open");
     backdrop.classList.remove("open");
-    console.log("is it removed");
     isSidebar = false;
 }
 
