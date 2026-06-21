@@ -706,9 +706,7 @@ main{
     }
 
     .product-drawer{
-        /* position: absolute; */
         bottom: auto;
-        margin: auto;
         transform: none;
         max-width: 500px;
     }
@@ -765,6 +763,27 @@ main{
     }
 
     .fixed-cart{
+        display: none;
+    }
+
+    .product-drawer{
+        display: flex;
+        flex-direction: row;
+        max-width: 800px;
+        flex: 0 0 40%;
+    }
+
+    .drawer-upper{
+        flex: 0 0 40%;;
+    }
+
+    .drawer-upper img{
+    min-height: auto;
+    max-width: 100%;
+    object-fit: contain;
+    }
+
+    .drawer-close{
         display: none;
     }
 }
