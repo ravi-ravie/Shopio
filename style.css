@@ -145,6 +145,8 @@ nav{
 /* MAIN */
 main{
     padding: 3.2rem 1.2rem;
+    max-width: 1200px;
+    margin: 0 auto
 }
 
 /* CATEGORY */
@@ -299,6 +301,8 @@ main{
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
+    overflow: hidden;
+    overscroll-behavior: contain;
 }
 
 .backdrop.open{
@@ -307,6 +311,12 @@ main{
 }
 
 /* DRAWER */
+.modal-overlay{
+    visibility: hidden;
+    overflow: hidden;
+    overscroll-behavior: contain;
+}
+
 .bottom-drawer{
     position: fixed;
     bottom: 0;
@@ -675,7 +685,50 @@ main{
 }
 
 
+/* RESPONSIVE - 600PX */
 
+@media (min-width : 600px){
+    .products-container{
+        grid-template-columns: repeat(3,1fr);
+    }
 
+    .modal-overlay{
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 150;
+        animation: bottomSheetAnimation .8s cubic-bezier(.4,0,.2,1);
+    }
 
+    .product-drawer{
+        /* position: absolute; */
+        bottom: auto;
+        margin: auto;
+        transform: none;
+        max-width: 500px;
+    }
 
+    @keyframes bottomSheetAnimation{
+        0%{
+            opacity:0;
+            transform: translateY(20px) scale(.98);
+        }
+        100%{
+            opacity: 1;
+            transform: translateY(1);
+        }
+    }
+
+    .product-drawer{
+        border-radius: 16px
+    }
+}
+
+/* RESPONSIVE - 900PX */
+@media (min-width : 900px){
+    .products-container{
+        grid-template-columns: repeat(4,1fr);
+    }
+}

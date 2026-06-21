@@ -18,6 +18,7 @@ let total = document.querySelector(".total-value");
 let fixedCart = document.querySelector(".fixed-cart");
 let cartSize = document.querySelectorAll(".cartSize");
 let backdrop = document.querySelector(".backdrop");
+let modalOverlay = document.querySelector(".modal-overlay");
 
 searchIcon.addEventListener("click", ()=>{
     let existing = document.querySelector(".searchDiv");
@@ -247,6 +248,7 @@ function drawerFunc(card){
     DrawerActiveCard = card;
     productDrawer.classList.add("open");
     backdrop.classList.add("open");
+    modalOverlay.style.visibility = "visible";
     isbottomsheet = true;
     document.querySelector(".drawer-img").src = card.querySelector("img").src;
     document.querySelector(".drawer-category").innerText = card.querySelector(".upper-category").innerText;
@@ -256,12 +258,14 @@ function drawerFunc(card){
     document.querySelector(".drawer-count").innerText = `${card.querySelector(".voteCount").innerText} reviews`;
     document.querySelector(".drawer-description").innerText = card.dataset.description;
     document.querySelector(".drawer-price").innerText = card.querySelector(".price").innerText;
+    
 }
 
 
 function closeDrawerFunc(){
     productDrawer.classList.remove("open");
     backdrop.classList.remove("open");
+    modalOverlay.style.visibility = "hidden";
     isbottomsheet = false;
     DrawerActiveCard = null;
 }
