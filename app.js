@@ -23,6 +23,7 @@ let rightNav = document.querySelector(".right-nav");
 let navWrapper = document.querySelector(".nav-wrapper");
 let searchDiv = document.querySelector(".searchDiv");
 let searchBar = searchDiv.querySelector("input");
+let navCartBadger = document.querySelector(".navCartWrapper span");
 
 searchBar.addEventListener("focus", ()=>{
     searchDiv.classList.add("selected");
@@ -421,10 +422,12 @@ function emptyCartFunc(){
         emptyCartDisplay.classList.add("hidden");
         cartFooter.classList.remove("hidden");
         fixedCart.classList.remove("hidden");
+        navCartBadger.classList.remove("hidden");
     }else if(cart.length === 0){
         emptyCartDisplay.classList.remove("hidden");
         cartFooter.classList.add("hidden");
         fixedCart.classList.add("hidden");
+        navCartBadger.classList.add("hidden");
     }
 }
 
