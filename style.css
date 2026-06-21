@@ -669,6 +669,7 @@ body::-webkit-scrollbar{
     border-radius: 12px;
     font-size: .88rem;
     font-weight: 600;
+    border: none;
 }
 
 /* FIXED CART */
